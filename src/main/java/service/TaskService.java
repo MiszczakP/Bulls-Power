@@ -6,27 +6,36 @@ import model.Task;
 import model.TaskDao;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RequiredArgsConstructor
+
 public class TaskService {
 
     private final TaskDao taskDao;
+    private List<Task> tasks;
 
-    public void start(String projectName, String taskName) throws FileNotFoundException {
+    public TaskService(TaskDao taskDao) {
+        this.taskDao = taskDao;
+        tasks = taskDao.getAll();
+    }
 
-        Task lastTask = taskDao.getAll().get(taskDao.getAll().size() - 1);
+    public void start(String projectName, String taskName) throws IOException {
 
-        if (lastTask.getStop() == null) {
-            lastTask.setStop(LocalDateTime.now());
+        if (!tasks.isEmpty()){
+            Task lastTask = tasks.get(taskDao.getAll().size() - 1);
+
+            if (lastTask.getStop() == null) {
+                lastTask.setStop(LocalDateTime.now());
+            }
         }
 
         Task task = new Task(projectName, taskName);
-        taskDao.getAll().add(new Task(projectName, taskName));
+        tasks.add(new Task(projectName, taskName));
 
-        //helper.save(all);
+        taskDao.save(tasks);
         System.out.println("save");
 
         System.out.println(projectName + " " + projectName + "started " + task.getStart());
@@ -34,13 +43,13 @@ public class TaskService {
 
     }
 
-    public void stop() throws FileNotFoundException {
+    public void stop() throws IOException {
 
-
-        Task lastTask = taskDao.getAll().get(taskDao.getAll().size() - 1);
+        Task lastTask = tasks.get(taskDao.getAll().size() - 1);
         lastTask.setStop(LocalDateTime.now());
 
-        //helper.save(all);
+
+        taskDao.save(tasks);
         System.out.println("saved");
 
         System.out.println(lastTask.getProjectName() + " " + lastTask.getTaskName() + " finished" + lastTask.getStop());
@@ -48,7 +57,7 @@ public class TaskService {
 
     }
 
-    public Task getCurrent() throws FileNotFoundException {
+    public Task getCurrent() {
         Task task = taskDao.getAll()
                 .get(taskDao.getAll().size() - 1);
 
@@ -63,9 +72,6 @@ public class TaskService {
 
 
     public void printAll() throws FileNotFoundException {
-
         taskDao.getAll().forEach(System.out::println);
-
-
     }
 }

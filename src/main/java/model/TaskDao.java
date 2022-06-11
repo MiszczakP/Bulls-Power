@@ -4,6 +4,7 @@ import adapter.FileInterpreter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class TaskDao {
@@ -18,6 +19,10 @@ public class TaskDao {
 
     public List<Task> getAll() {
         return tasks;
+    }
+
+    public void save(List<Task> tasks) throws IOException {
+        fileInterpreter.saveDataToDocument(tasks);
     }
 
 

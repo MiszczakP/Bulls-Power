@@ -2,10 +2,7 @@ package adapter;
 
 import model.Task;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -15,10 +12,30 @@ import java.util.Scanner;
 
 public class FileInterpreter {
 
+    public void saveDataToDocument(List<Task> input) throws IOException {
+        FileWriter writer = new FileWriter("data/test.csv");
+        for (Task task : input) {
+            writer.append(task.getProjectName());
+            writer.append(';');
+            writer.append(task.getTaskName());
+            writer.append(';');
+            writer.append(task.getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            writer.append(';');
+            if (task.getStop() == null) {
+                writer.append("");
+            } else {
+                writer.append(task.getStop().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            }
+            writer.append('\n');
+        }
+        writer.flush();
+        writer.close();
+    }
+
     public List<Task> readDocumentsInDataFolder() throws FileNotFoundException {
 
         List<Task> listOfTasks = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("data/test_file.csv"))) {
+        try (Scanner scanner = new Scanner(new File("data/test.csv"))) {
             while (scanner.hasNextLine()) {
                 listOfTasks.add(getRecordFromLine(scanner.nextLine()));
             }
@@ -47,5 +64,7 @@ public class FileInterpreter {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(str, formatter);
     }
+
+
 
 }

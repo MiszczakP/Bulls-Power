@@ -5,11 +5,12 @@ import model.TaskDao;
 import service.TaskService;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
 
         String function = args[0];
         String[] arguments = Arrays.copyOfRange(args, 1, args.length);
@@ -27,19 +28,19 @@ public class Main {
                     taskService.stop();
                     break;
                 case "continue":
-//TODO
+                    //TODO
                     break;
                 case "current":
                     taskService.getCurrent();
                     break;
                 case "report":
-//TODO
+                    //TODO
                     break;
                 case "list":
                     taskService.printAll();
                     break;
                 case "last":
-//TODO
+                    //TODO
                     break;
                 case "-h":
                     showHelp();
