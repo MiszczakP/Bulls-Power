@@ -4,7 +4,6 @@ import adapter.FileInterpreter;
 import model.TaskDao;
 import service.TaskService;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -31,7 +30,7 @@ public class Main {
                     //TODO
                     break;
                 case "current":
-                    taskService.getCurrent();
+                    taskService.printCurrent();
                     break;
                 case "report":
                     //TODO

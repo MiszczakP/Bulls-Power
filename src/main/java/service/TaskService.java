@@ -57,17 +57,17 @@ public class TaskService {
 
     }
 
-    public Task getCurrent() {
+    public void printCurrent() {
         Task task = taskDao.getAll()
                 .get(taskDao.getAll().size() - 1);
 
-        System.out.println(task);
 
         if (task.getStop() != null) {
             System.out.println("No open tasks");
+        } else {
+            System.out.println(task);
         }
 
-        return task;
     }
 
 
