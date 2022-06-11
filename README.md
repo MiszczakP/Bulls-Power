@@ -1,17 +1,16 @@
 # Bulls-Power
 
-DOKUMENTACJA
+## Lista dostępnych komend:
 
-Lista dostępnych komend:
-start
-stop
-report
-continue
-list
-last
-current
--h
--f
+- start
+- stop
+- report
+- continue
+- list
+- last
+- current
+- -h
+- -f
 
 1. start
 	start nazwa_projektu nazwa_zadania
