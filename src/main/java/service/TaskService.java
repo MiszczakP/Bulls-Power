@@ -36,24 +36,23 @@ public class TaskService {
         tasks.add(new Task(projectName, taskName));
 
         taskDao.save(tasks);
-        System.out.println("save");
 
-        System.out.println(projectName + " " + projectName + "started " + task.getStart());
+        System.out.println(projectName + " " + taskName + " started at:" + task.getStart());
 
 
     }
 
-    public void stop() throws IOException {
+    public void stop() {
 
         Task lastTask = tasks.get(taskDao.getAll().size() - 1);
         lastTask.setStop(LocalDateTime.now());
 
-
         taskDao.save(tasks);
-        System.out.println("saved");
 
-        System.out.println(lastTask.getProjectName() + " " + lastTask.getTaskName() + " finished" + lastTask.getStop());
-        System.out.println("Duration: " + Duration.between(lastTask.getStop(),lastTask.getStart()));
+        System.out.println(lastTask.getProjectName() + " " + lastTask.getTaskName() + " finished at:" + lastTask.getStop());
+        //TODO
+        System.out.println("Duration: " + Duration.between(lastTask.getStart(), lastTask.getStop()).toMillis());
+
 
     }
 

@@ -6,7 +6,6 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,9 +13,7 @@ public class FileInterpreter {
 
     public void saveDataToDocument(List<Task> input) {
 
-        try (
-                FileWriter writer = new FileWriter("data/test.csv");
-                ) {
+        try (FileWriter writer = new FileWriter("data/test.csv")) {
             for (Task task : input) {
                 writer.append(task.getProjectName());
                 writer.append(';');
