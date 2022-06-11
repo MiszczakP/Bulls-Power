@@ -32,13 +32,13 @@ public class FileInterpreter {
         try (Scanner rowScanner = new Scanner(line)) {
             rowScanner.useDelimiter(";");
             task.setProjectName(rowScanner.next());
-            System.out.println("PRO: " + task.getProjectName());
             task.setTaskName(rowScanner.next());
-            System.out.println("TASK: " + task.getTaskName());
             task.setStart(formatter(rowScanner.next()));
-            System.out.println("START: " + task.getStart());
-            task.setStop(formatter(rowScanner.next()));
-            System.out.println("STOP: " + task.getStop());
+            if (rowScanner.hasNext()) {
+                task.setStop(formatter(rowScanner.next()));
+            } else {
+                task.setStop(null);
+            }
         }
         return task;
     }
