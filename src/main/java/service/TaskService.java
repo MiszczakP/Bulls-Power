@@ -22,7 +22,7 @@ public class TaskService {
         tasks = taskDao.getAll();
     }
 
-    public void start(String projectName, String taskName) throws IOException {
+    public void start(String projectName, String taskName) {
 
         if (!tasks.isEmpty()){
             Task lastTask = tasks.get(taskDao.getAll().size() - 1);
@@ -70,8 +70,7 @@ public class TaskService {
 
     }
 
-
-    public void printAll() throws FileNotFoundException {
+    public void printAll() {
         taskDao.getAll().forEach(System.out::println);
     }
 }

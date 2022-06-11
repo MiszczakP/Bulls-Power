@@ -9,10 +9,10 @@ import java.util.List;
 
 public class TaskDao {
 
-    private FileInterpreter fileInterpreter;
-    private List<Task> tasks;
+    private final FileInterpreter fileInterpreter;
+    private final List<Task> tasks;
 
-    public TaskDao(FileInterpreter interpreter) throws FileNotFoundException {
+    public TaskDao(FileInterpreter interpreter) {
         fileInterpreter = interpreter;
         tasks = fileInterpreter.readDocumentsInDataFolder();
     }
@@ -21,7 +21,7 @@ public class TaskDao {
         return tasks;
     }
 
-    public void save(List<Task> tasks) throws IOException {
+    public void save(List<Task> tasks) {
         fileInterpreter.saveDataToDocument(tasks);
     }
 
