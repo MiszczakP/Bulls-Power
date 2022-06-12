@@ -9,19 +9,7 @@ import java.util.List;
 
 public class Printer {
 
-    TaskDao taskService = new TaskDao(new FileInterpreter());
-
-    private List<Task> tasks = taskService.getAll();
-
-    @Override
-    public String toString() {
-        return "Printer{" +
-                "tasks=" + tasks +
-                '}';
-    }
-
-
-    public void printTasks() {
+    public void printList(List<Task> tasks) {
         int nameLength = 0;
         int projectLength = 0;
 

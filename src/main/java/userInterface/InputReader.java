@@ -46,16 +46,13 @@ public class InputReader {
                 //TODO
                 break;
             case "list":
-                taskService.printAll();
+                printer.printList(taskService.getAll());
                 break;
             case "last":
                 taskService.printLast();
                 break;
             case "-h":
                 helpService.printHelp();
-                break;
-            case "-f":
-                printer.printTasks();
                 break;
         }
 

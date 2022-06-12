@@ -56,8 +56,8 @@ public class TaskService {
 
     }
 
-    public void printAll() {
-        taskDao.getAll().forEach(System.out::println);
+    public List<Task> getAll() {
+        return tasks;
     }
 
     public void printLast() {

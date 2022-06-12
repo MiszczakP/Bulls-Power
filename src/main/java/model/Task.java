@@ -44,4 +44,9 @@ public class Task {
         return Objects.hash(taskName);
     }
 
+    @Override
+    public String toString() {
+        return projectName + " " + taskName + " start time:" + start;
+    }
+
 }

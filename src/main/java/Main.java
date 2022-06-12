@@ -7,7 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         try {
             String function = args[0];
             String[] arguments = Arrays.copyOfRange(args, 1, args.length);

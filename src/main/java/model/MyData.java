@@ -1,17 +1,26 @@
 package model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 
 @Data
-public class MyData {
+@AllArgsConstructor
+public class MyData implements Comparable<MyData> {
     private int day;
     private int month;
     private int year;
     private int hour;
     private int minute;
     private Long timeStamp;
+
+    public MyData(int day, int month, int year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+    }
 
     public MyData() {
         this.day = LocalDateTime.now().getDayOfMonth();
@@ -45,5 +54,14 @@ public class MyData {
         return stop.timeStamp - start.timeStamp;
     }
 
+
+    @Override
+    public int compareTo(MyData m){
+        return Comparator.comparing(MyData::getYear)
+                        .thenComparing(MyData::getMonth)
+                                .thenComparing(MyData::getDay)
+                                        .compare(this, m);
+
+    }
 
 }

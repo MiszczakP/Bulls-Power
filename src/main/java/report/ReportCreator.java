@@ -12,24 +12,29 @@ import java.util.stream.Collectors;
 
 public class ReportCreator {
 
-    public static void main(String[] args) {
+    public List<Task> filterByDate(List<Task> tasks, String start, String end) {
 
-        TaskDao taskDao = new TaskDao(new FileInterpreter());
+        MyData startDate = mapStringToMyDate(start);
+        MyData endDate = mapStringToMyDate(end);
 
-        ReportCreator creator = new ReportCreator();
-        Map<Task, Long> time = creator.computeTime(taskDao.getAll());
-
-        time.keySet().forEach(k -> {
-            System.out.println(k + " " + time.get(k));
-        });
-
+        return tasks.stream()
+                .filter(t -> t.getStart().compareTo(startDate) <= 0)
+                .filter(t -> t.getStop().compareTo(endDate) <= 0)
+                .toList();
     }
 
-    // 7 dni wstecz
-    // tydzien zacyznajacy sie od poniedzialku
-    // wybrana data, jeden dzien,
-    // zakres dat\
-    // miesieczne
+    private MyData mapStringToMyDate(String date) {
+
+        String[] split = date.split("-");
+
+            MyData data = new MyData();
+            data.setDay(Integer.parseInt(split[2]));
+            data.setMonth(Integer.parseInt(split[1]));
+            data.setYear(Integer.parseInt(split[0]));
+
+            return data;
+
+    }
 
     public List<Task> filterByProjectName(List<Task> tasks, String projectName) {
         return tasks.stream()
@@ -39,7 +44,6 @@ public class ReportCreator {
     }
 
     public Map<Task, Long> computeTime(List<Task> tasks) {
-
         return tasks.stream()
                 .collect(Collectors.groupingBy(
                         t -> t, Collectors.summingLong(Task::getDuration)
