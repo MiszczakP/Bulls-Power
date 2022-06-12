@@ -11,11 +11,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+
+
 public class FileInterpreter {
 
     public void saveDataToDocument(List<Task> input) {
 
-        try (FileWriter writer = new FileWriter("data/test.csv")) {
+        try (FileWriter writer = new FileWriter("./Tasks.csv")) {
             for (Task task : input) {
 
                 String startDays = checkDay(task.getStart());
@@ -54,8 +56,17 @@ public class FileInterpreter {
 
     public List<Task> readDocumentsInDataFolder()  {
 
+        File file = new File("./Tasks.csv");
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         List<Task> listOfTasks = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new File("data/test.csv"))) {
+        try (Scanner scanner = new Scanner(new File("./Tasks.csv"))) {
             while (scanner.hasNextLine()) {
                 try {
 
