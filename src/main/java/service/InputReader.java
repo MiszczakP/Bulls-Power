@@ -24,7 +24,6 @@ public class InputReader {
     public void run () throws FileNotFoundException {
 
 
-
         switch (function) {
 
             case "start":
