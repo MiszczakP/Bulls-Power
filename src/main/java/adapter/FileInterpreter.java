@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class FileInterpreter {
@@ -64,7 +65,13 @@ public class FileInterpreter {
         List<Task> listOfTasks = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File("data/test.csv"))) {
             while (scanner.hasNextLine()) {
-                listOfTasks.add(getRecordFromLine(scanner.nextLine()));
+                try {
+
+
+                    listOfTasks.add(getRecordFromLine(scanner.nextLine()));
+                }catch (NoSuchElementException e) {
+                    listOfTasks.add(getRecordFromLine(scanner.nextLine()));
+                }
             }
         } catch (FileNotFoundException e) {
             System.err.println("File not found!");
