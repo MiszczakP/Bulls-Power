@@ -44,4 +44,6 @@ public class MyData {
     public static Long minuteBetween(MyData stop, MyData start) {
         return stop.timeStamp - start.timeStamp;
     }
+
+
 }

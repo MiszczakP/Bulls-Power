@@ -3,6 +3,7 @@ package model;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import static model.MyData.emptyMyData;
 
@@ -31,5 +32,19 @@ public class Task {
         this.stop = new MyData();
         duration = MyData.minuteBetween(stop, start);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return taskName.equals(task.taskName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskName);
+    }
+
 
 }
