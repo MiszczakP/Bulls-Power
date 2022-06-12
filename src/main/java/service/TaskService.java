@@ -2,6 +2,7 @@ package service;
 
 import adapter.FileInterpreter;
 import lombok.RequiredArgsConstructor;
+import model.MyData;
 import model.Task;
 import model.TaskDao;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public class TaskService {
 
     private final TaskDao taskDao;
-    private List<Task> tasks;
+    private final List<Task> tasks;
 
     public TaskService(TaskDao taskDao) {
         this.taskDao = taskDao;
@@ -28,7 +29,7 @@ public class TaskService {
             Task lastTask = tasks.get(taskDao.getAll().size() - 1);
 
             if (lastTask.getStop() == null) {
-                lastTask.setStop(LocalDateTime.now());
+                lastTask.finishTask();
             }
         }
 
@@ -45,13 +46,12 @@ public class TaskService {
     public void stop() {
 
         Task lastTask = tasks.get(taskDao.getAll().size() - 1);
-        lastTask.setStop(LocalDateTime.now());
+        lastTask.finishTask();
 
         taskDao.save(tasks);
 
         System.out.println(lastTask.getProjectName() + " " + lastTask.getTaskName() + " finished at:" + lastTask.getStop());
-        //TODO
-        System.out.println("Duration: " + Duration.between(lastTask.getStart(), lastTask.getStop()).toMillis());
+        System.out.println("Duration: " + lastTask.getDuration());
 
 
     }
@@ -61,7 +61,7 @@ public class TaskService {
                 .get(taskDao.getAll().size() - 1);
 
 
-        if (task.getStop() != null) {
+        if (!task.getStop().isEmpty()) {
             System.out.println("No open tasks");
         } else {
             System.out.println(task);

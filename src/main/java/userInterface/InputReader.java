@@ -1,7 +1,9 @@
-package service;
+package userInterface;
 
 import adapter.FileInterpreter;
 import model.TaskDao;
+import service.HelpService;
+import service.TaskService;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -19,6 +21,7 @@ public class InputReader {
         this.arguments = arguments;
     }
 
+    HelpService helpService = new HelpService();
     TaskService taskService = new TaskService(new TaskDao(new FileInterpreter()));
 
     public void run () throws FileNotFoundException {
@@ -48,7 +51,7 @@ public class InputReader {
                 //TODO
                 break;
             case "-h":
-                showHelp();
+                helpService.printHelp();
                 break;
             case "-f":
                 break;

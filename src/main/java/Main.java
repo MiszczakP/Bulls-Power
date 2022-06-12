@@ -1,4 +1,4 @@
-import service.InputReader;
+import userInterface.InputReader;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 
@@ -17,7 +17,6 @@ public class Main {
 
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Nie podano argumentów");
-
         }
     }
 }
