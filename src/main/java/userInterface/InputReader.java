@@ -1,6 +1,7 @@
 package userInterface;
 
 import adapter.FileInterpreter;
+import model.Task;
 import model.TaskDao;
 import service.HelpService;
 import service.Printer;
@@ -40,7 +41,11 @@ public class InputReader {
                 taskService.continueTask();
                 break;
             case "current":
-                taskService.printCurrent();
+                if (taskService.getCurrent().isPresent()) {
+                    System.out.println(taskService.getCurrent().get());
+                } else {
+                    System.out.println("There is no open tasks");
+                }
                 break;
             case "report":
                 //TODO

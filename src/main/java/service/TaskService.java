@@ -4,6 +4,7 @@ import model.Task;
 import model.TaskDao;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TaskService {
 
@@ -46,13 +47,13 @@ public class TaskService {
 
     }
 
-    public void printCurrent() {
-        Task task = taskDao.getCurrent();
-        if (!task.getStop().isEmpty()) {
-            System.out.println("No open tasks");
-        } else {
-            System.out.println(task);
+    public Optional<Task> getCurrent() {
+
+        if (taskDao.getCurrent().getStop().isEmpty()) {
+            return Optional.of(taskDao.getCurrent());
         }
+
+        return Optional.empty();
 
     }
 
