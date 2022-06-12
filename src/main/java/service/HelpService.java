@@ -10,8 +10,7 @@ public class HelpService {
 
         File helpFile = new File(fileUrl);
 
-        try (Scanner scanner = new Scanner(helpFile);)
-        {
+        try (Scanner scanner = new Scanner(helpFile);) {
             while (scanner.hasNext()) {
                 System.out.println(scanner.nextLine());
             }

@@ -18,16 +18,14 @@ public class FileInterpreter {
         try (FileWriter writer = new FileWriter("data/test.csv")) {
             for (Task task : input) {
 
-                String startMonth = String.valueOf(task.getStart().getMonth());
-                String endMonth = String.valueOf(task.getStop().getMonth());
-
-                if (task.getStart().getMonth() < 10) {
-                    startMonth = "0" + startMonth;
-                }
-
-                if (task.getStop().getMonth() < 10 && task.getStop().getMonth() != 0) {
-                    endMonth = "0" + endMonth;
-                }
+                String startDays = checkDay(task.getStart());
+                String stopDays = checkDay(task.getStop());
+                String startMonth = checkMonth(task.getStart());
+                String stopMonth = checkMonth(task.getStop());
+                String startMins = checkMinutes(task.getStart());
+                String stopMins = checkMinutes(task.getStop());
+                String startHours = checkHours(task.getStart());
+                String stopHours = checkHours(task.getStop());
 
                 writer.append(task.getProjectName());
                 writer.append(';');
@@ -35,22 +33,16 @@ public class FileInterpreter {
                 writer.append(';');
                 writer.append(task.getDuration().toString());
                 writer.append(';');
-//                writer.append(task.getStart().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-                writer.append(
-                        String.valueOf(task.getStart().getYear())).append("-").append(startMonth).append("-").append(
-                        String.valueOf(task.getStart().getDay())).append(" ").append(
-                        String.valueOf(task.getStart().getHour())).append(":").append(
-                        String.valueOf(task.getStart().getMinute()));
+                writer.append(String.valueOf(task.getStart().getYear())).append("-")
+                        .append(startMonth).append("-").append(startDays).append(" ")
+                        .append(startHours).append(":").append(startMins);
                 writer.append(';');
                 if (task.getStop() == null) {
                     writer.append("");
                 } else {
-//                    writer.append(task.getStop().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-                    writer.append(
-                            String.valueOf(task.getStop().getYear())).append("-").append(endMonth).append("-").append(
-                            String.valueOf(task.getStop().getDay())).append(" ").append(
-                            String.valueOf(task.getStop().getHour())).append(":").append(
-                            String.valueOf(task.getStop().getMinute()));
+                    writer.append(String.valueOf(task.getStop().getYear())).append("-")
+                            .append(stopMonth).append("-").append(stopDays).append(" ")
+                            .append(stopHours).append(":").append(stopMins);
                 }
                 writer.append('\n');
             }
@@ -87,7 +79,6 @@ public class FileInterpreter {
             task.setProjectName(rowScanner.next());
             task.setTaskName(rowScanner.next());
             task.setDuration(Long.valueOf(rowScanner.next()));
-//            task.setStart(formatter(rowScanner.next()));
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(rowScanner.next(), formatter);
@@ -100,7 +91,6 @@ public class FileInterpreter {
             task.getStart().setMinute(dateTime.getMinute());
 
             if (rowScanner.hasNext()) {
-//                task.setStop(formatter(rowScanner.next()));
                 task.setStop(new MyData());
                 task.getStop().setYear(dateTime.getYear());
                 task.getStop().setMonth(dateTime.getMonthValue());
@@ -114,11 +104,37 @@ public class FileInterpreter {
         return task;
     }
 
-    private LocalDateTime formatter(String str) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return LocalDateTime.parse(str, formatter);
+    private String checkDay(MyData time) {
+        String couter = String.valueOf(time.getDay());
+        if (time.getDay() < 10 && time.getDay() != 0) {
+            couter = "0" + couter;
+        }
+        return couter;
     }
 
+    private String checkMonth(MyData time) {
+        String couter = String.valueOf(time.getMonth());
+        if (time.getMonth() < 10 && time.getMonth() != 0) {
+            couter = "0" + couter;
+        }
+        return couter;
+    }
+
+    private String checkMinutes(MyData time) {
+        String couter = String.valueOf(time.getMinute());
+        if (time.getMinute() < 10 && time.getMinute() != 0) {
+            couter = "0" + couter;
+        }
+        return couter;
+    }
+
+    private String checkHours(MyData time) {
+        String couter = String.valueOf(time.getHour());
+        if (time.getHour() < 10 && time.getHour() != 0) {
+            couter = "0" + couter;
+        }
+        return couter;
+    }
 
 
 }

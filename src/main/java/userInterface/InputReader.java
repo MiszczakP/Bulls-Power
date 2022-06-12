@@ -7,7 +7,6 @@ import service.Printer;
 import service.TaskService;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 
 public class InputReader {
@@ -17,7 +16,7 @@ public class InputReader {
     String[] arguments;
 
 
-    public InputReader(String function, String[]arguments) throws FileNotFoundException {
+    public InputReader(String function, String[] arguments) {
         this.function = function;
         this.arguments = arguments;
     }
@@ -26,7 +25,7 @@ public class InputReader {
     TaskService taskService = new TaskService(new TaskDao(new FileInterpreter()));
     Printer printer = new Printer();
 
-    public void run () throws FileNotFoundException {
+    public void run() {
 
 
         switch (function) {
@@ -38,7 +37,7 @@ public class InputReader {
                 taskService.stop();
                 break;
             case "continue":
-                //TODO
+                taskService.continueTask();
                 break;
             case "current":
                 taskService.printCurrent();
@@ -50,7 +49,7 @@ public class InputReader {
                 taskService.printAll();
                 break;
             case "last":
-                //TODO
+                taskService.printLast();
                 break;
             case "-h":
                 helpService.printHelp();
@@ -62,7 +61,8 @@ public class InputReader {
 
 
     }
-    private static void showHelp () {
+
+    private static void showHelp() {
 
         String[] commands = {"start", "stop", "report", "continue", "list", "last", "current", "-h", "-f"};
         System.out.println("Lista dostępnych komend:");

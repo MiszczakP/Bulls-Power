@@ -1,17 +1,9 @@
 package service;
 
-import adapter.FileInterpreter;
-import lombok.RequiredArgsConstructor;
-import model.MyData;
 import model.Task;
 import model.TaskDao;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.List;
-
 
 public class TaskService {
 
@@ -25,7 +17,7 @@ public class TaskService {
 
     public void start(String projectName, String taskName) {
 
-        if (!tasks.isEmpty()){
+        if (!tasks.isEmpty()) {
             Task lastTask = tasks.get(taskDao.getAll().size() - 1);
 
             if (lastTask.getStop() == null) {
@@ -40,7 +32,6 @@ public class TaskService {
 
         System.out.println(projectName + " " + taskName + " started at:" + task.getStart());
 
-
     }
 
     public void stop() {
@@ -53,14 +44,10 @@ public class TaskService {
         System.out.println(lastTask.getProjectName() + " " + lastTask.getTaskName() + " finished at:" + lastTask.getStop());
         System.out.println("Duration: " + lastTask.getDuration());
 
-
     }
 
     public void printCurrent() {
-        Task task = taskDao.getAll()
-                .get(taskDao.getAll().size() - 1);
-
-
+        Task task = taskDao.getCurrent();
         if (!task.getStop().isEmpty()) {
             System.out.println("No open tasks");
         } else {
@@ -71,5 +58,20 @@ public class TaskService {
 
     public void printAll() {
         taskDao.getAll().forEach(System.out::println);
+    }
+
+    public void printLast() {
+        List<Task> tasks = taskDao.getLastNineTasks();
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.println((i + 1) + ": " + tasks.get(i));
+        }
+    }
+
+    public void continueTask() {
+        continueTaskWithId(1);
+    }
+
+    public void continueTaskWithId(int taskId) {
+        start(taskDao.continueTask(taskId).getProjectName(), taskDao.continueTask(taskId).getTaskName());
     }
 }

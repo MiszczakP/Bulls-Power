@@ -1,8 +1,6 @@
 package model;
 
 import lombok.*;
-
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static model.MyData.emptyMyData;
@@ -45,6 +43,5 @@ public class Task {
     public int hashCode() {
         return Objects.hash(taskName);
     }
-
 
 }
