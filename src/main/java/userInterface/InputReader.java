@@ -3,6 +3,7 @@ package userInterface;
 import adapter.FileInterpreter;
 import model.TaskDao;
 import service.HelpService;
+import service.Printer;
 import service.TaskService;
 
 import java.io.FileNotFoundException;
@@ -23,6 +24,7 @@ public class InputReader {
 
     HelpService helpService = new HelpService();
     TaskService taskService = new TaskService(new TaskDao(new FileInterpreter()));
+    Printer printer = new Printer();
 
     public void run () throws FileNotFoundException {
 
@@ -54,6 +56,7 @@ public class InputReader {
                 helpService.printHelp();
                 break;
             case "-f":
+                printer.printTasks();
                 break;
         }
 
