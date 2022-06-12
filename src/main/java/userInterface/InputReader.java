@@ -8,9 +8,7 @@ import service.HelpService;
 import service.Printer;
 import service.TaskService;
 
-
-import java.util.Map;
-
+import java.io.FileNotFoundException;
 
 
 public class InputReader {
@@ -28,9 +26,7 @@ public class InputReader {
     HelpService helpService = new HelpService();
     TaskService taskService = new TaskService(new TaskDao(new FileInterpreter()));
     Printer printer = new Printer();
-    ReportCreator creator = new ReportCreator();
-    TaskDao taskDao = new TaskDao(new FileInterpreter());
-    Map<Task, Long> time = creator.computeTime(taskDao.getAll());
+    ReportCreator reportCreator = new ReportCreator();
 
     public void run() {
 
@@ -54,8 +50,13 @@ public class InputReader {
                 }
                 break;
             case "report":
-                //TODO
-                printer.printReport(time);
+                if(arguments[0].equals("p")){
+                    printer.printReport(reportCreator.computeTime(reportCreator.filterByProjectName(taskService.getAll(), arguments[1])));
+                }else if(arguments[0].equals("d")){
+                    printer.printReport(reportCreator.computeTime(reportCreator.filterByDate(taskService.getAll(), arguments[1],arguments[2])));
+                }else{
+                    printer.printReport(reportCreator.computeTime(taskService.getAll()));
+                }
                 break;
             case "list":
                 printer.printList(taskService.getAll());
@@ -65,9 +66,6 @@ public class InputReader {
                 break;
             case "-h":
                 helpService.printHelp();
-                break;
-            case "-f":
-
                 break;
         }
 
