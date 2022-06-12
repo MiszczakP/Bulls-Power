@@ -44,3 +44,4 @@ wyświetla informacje o danej komendzie, m.in. przyjmowane argumenty
 9. -f
 	-f ścieżka_pliku
 możliwość wskazania pliku, do którego mają się zapisywać dane.
+
