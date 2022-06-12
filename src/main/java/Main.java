@@ -1,6 +1,5 @@
-import userInterface.InputReader;
+import userInterface.Starter;
 
-import java.io.FileNotFoundException;
 import java.util.Arrays;
 
 public class Main {
@@ -11,9 +10,9 @@ public class Main {
             String function = args[0];
             String[] arguments = Arrays.copyOfRange(args, 1, args.length);
 
-            InputReader inputReader = new InputReader(function, arguments);
+            Starter starter = new Starter(function, arguments);
 
-            inputReader.run();
+            starter.run();
 
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Nie podano argumentów");

@@ -138,9 +138,6 @@ public class Printer {
                 }
             }
 
-
-       // System.out.println("Project:" + " ".repeat(projectLength - "Project:".length() + 1) + "Task name:" + " ".repeat(nameLength - "Task name:".length() + 1) + "Start time:" + "Stop time:" + "Hours spent:");
-
         for(Task task : tasks.keySet()) {
             Long l = tasks.get(task);
 

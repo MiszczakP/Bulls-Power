@@ -16,12 +16,6 @@ public class MyData implements Comparable<MyData> {
     private int minute;
     private Long timeStamp;
 
-    public MyData(int day, int month, int year) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-    }
-
     public MyData() {
         this.day = LocalDateTime.now().getDayOfMonth();
         this.month = LocalDateTime.now().getMonthValue();

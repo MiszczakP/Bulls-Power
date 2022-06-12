@@ -15,7 +15,6 @@ public class ReportCreator {
 
     public List<Task> filterByDate(List<Task> tasks, String start, String end) {
 
-
         MyData startDate = mapStringToMyDate(start);
         MyData endDate = mapStringToMyDate(end);
 

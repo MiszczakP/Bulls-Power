@@ -10,23 +10,19 @@ import service.TaskService;
 
 import java.io.FileNotFoundException;
 
+public class Starter {
 
-public class InputReader {
+    private String function;
+    private String[] arguments;
+    private HelpService helpService = new HelpService();
+    private TaskService taskService = new TaskService(new TaskDao(new FileInterpreter()));
+    private Printer printer = new Printer();
+    ReportCreator reportCreator = new ReportCreator();
 
-
-    String function;
-    String[] arguments;
-
-
-    public InputReader(String function, String[] arguments) {
+    public Starter(String function, String[] arguments) {
         this.function = function;
         this.arguments = arguments;
     }
-
-    HelpService helpService = new HelpService();
-    TaskService taskService = new TaskService(new TaskDao(new FileInterpreter()));
-    Printer printer = new Printer();
-    ReportCreator reportCreator = new ReportCreator();
 
     public void run() {
 
@@ -72,13 +68,5 @@ public class InputReader {
 
     }
 
-    private static void showHelp() {
-
-        String[] commands = {"start", "stop", "report", "continue", "list", "last", "current", "-h", "-f"};
-        System.out.println("Lista dostępnych komend:");
-        for (String s : commands) {
-            System.out.println(s);
-        }
-    }
 
 }
