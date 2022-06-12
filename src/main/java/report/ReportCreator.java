@@ -4,6 +4,7 @@ import adapter.FileInterpreter;
 import model.MyData;
 import model.Task;
 import model.TaskDao;
+import service.Printer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,16 @@ public class ReportCreator {
 
     public List<Task> filterByDate(List<Task> tasks, String start, String end) {
 
+
         MyData startDate = mapStringToMyDate(start);
         MyData endDate = mapStringToMyDate(end);
+
+        TaskDao taskDao = new TaskDao(new FileInterpreter());
+        Printer printer = new Printer();
+
+        ReportCreator creator = new ReportCreator();
+        Map<Task, Long> time = creator.computeTime(taskDao.getAll());
+
 
         return tasks.stream()
                 .filter(t -> t.getStart().compareTo(startDate) <= 0)

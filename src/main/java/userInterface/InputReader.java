@@ -3,11 +3,14 @@ package userInterface;
 import adapter.FileInterpreter;
 import model.Task;
 import model.TaskDao;
+import report.ReportCreator;
 import service.HelpService;
 import service.Printer;
 import service.TaskService;
 
-import java.io.FileNotFoundException;
+
+import java.util.Map;
+
 
 
 public class InputReader {
@@ -25,6 +28,9 @@ public class InputReader {
     HelpService helpService = new HelpService();
     TaskService taskService = new TaskService(new TaskDao(new FileInterpreter()));
     Printer printer = new Printer();
+    ReportCreator creator = new ReportCreator();
+    TaskDao taskDao = new TaskDao(new FileInterpreter());
+    Map<Task, Long> time = creator.computeTime(taskDao.getAll());
 
     public void run() {
 
@@ -49,6 +55,7 @@ public class InputReader {
                 break;
             case "report":
                 //TODO
+                printer.printReport(time);
                 break;
             case "list":
                 printer.printList(taskService.getAll());
@@ -58,6 +65,9 @@ public class InputReader {
                 break;
             case "-h":
                 helpService.printHelp();
+                break;
+            case "-f":
+
                 break;
         }
 
